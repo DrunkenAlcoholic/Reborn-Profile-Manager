@@ -1,5 +1,5 @@
 pkgname='rebornos-profile-manager'
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 pkgdesc='A user-friendly tool for creating and restoring backups of user profiles on Arch-based Linux systems.'
 arch=('any')
@@ -11,7 +11,7 @@ provides=("${pkgname}")
 conflicts=("${pkgname}")
 backup=()
 source=('rebornos-profile-manager.py')
-sha256sums=('998cfa2d90edd5bc6d5d287958e9f43c2e050cc6820c11360b1de759c6bc782f')
+sha256sums=('ef801b19ccbe2a361971158f68087896ca0404d01b62ca491a0518776f9eb21f')
           
 
 package() {
