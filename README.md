@@ -25,7 +25,6 @@ RebornOS Profile Manager is a user-friendly tool for creating and restoring back
   - Spinner animation during operations to ensure responsiveness.
 
 - **Visual Enhancements**:
-  - Includes a customizable logo in the header and success dialogs.
   - Modern GTK-based interface that integrates with Linux system themes.
 
 ---
@@ -84,12 +83,12 @@ RebornOS Profile Manager is a user-friendly tool for creating and restoring back
 
 2. Make the Python script executable:
    ```bash
-   chmod +x Rebornos_Profile_Manager.py
+   chmod +x rebornos-profile-manager.py
    ```
 
 3. Run the application:
    ```bash
-   ./Rebornos_Profile_Manager.py
+   ./rebornos-profile-manager.py
    ```
 
 ---
