@@ -36,9 +36,10 @@ RebornOS Profile Manager is a user-friendly tool for creating and restoring back
 
 #### Prerequisites
 - **Python 3.12 or later**
+- **Python PyGObject**
 - **GTK 3**
   ```bash
-  sudo pacman -S gtk3 python-gobject
+  sudo pacman -S python python-gobject gtk3
   ```
 
 #### Install Using the PKGBUILD File
