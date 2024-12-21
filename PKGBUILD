@@ -10,14 +10,14 @@ depends=('python' 'python-gobject' 'gtk3')
 provides=("${pkgname}")
 conflicts=("${pkgname}")
 backup=()
-source=('Rebornos_Profile_Manager.py')
+source=('rebornos-profile-manager.py')
 sha256sums=('998cfa2d90edd5bc6d5d287958e9f43c2e050cc6820c11360b1de759c6bc782f')
           
 
 package() {
     (
         # Install the main Python script
-        install -D -m 755 "${srcdir}/Rebornos_Profile_Manager.py" "${pkgdir}/usr/bin/rebornos-profile-manager"
+        install -D -m 755 "${srcdir}/rebornos-profile-manager.py" "${pkgdir}/usr/bin/rebornos-profile-manager"
 
         # TODO: Install the desktop entry for GUI integration
         #install -D -m 644 "${srcdir}/rebornos-profile-manager.desktop" "${pkgdir}/usr/share/applications/rebornos-profile-manager.desktop"
