@@ -1,6 +1,6 @@
 # RebornOS Profile Manager
 
-RebornOS Profile Manager (RPM) is a user-friendly tool for creating and restoring backups of important user profile data on Linux operating systems. Designed with simplicity and functionality in mind, making it easy to manage backups and restores of your most important files and directories with just a few clicks.
+RebornOS Profile Manager is a user-friendly tool for creating and restoring backups of important user profile data on Linux operating systems. Designed with simplicity and functionality in mind, making it easy to manage backups and restores of your most important files and directories with just a few clicks.
 
 ---
 
@@ -32,35 +32,64 @@ RebornOS Profile Manager (RPM) is a user-friendly tool for creating and restorin
 
 ## Installation
 
-### Prerequisites
+### For Arch Linux and Arch-Based Distributions
+
+#### Prerequisites
 - **Python 3.12 or later**
 - **GTK 3**
-  - Install GTK on your system if not already available:
-    ```bash
-    sudo pacman -S gtk3
-    ```
-- Required Python packages:
   ```bash
-  sudo pacman -S python-gobject
+  sudo pacman -S gtk3 python-gobject
   ```
 
-### Clone the Repository
-```bash
-git clone https://github.com/yourusername/rebornos-profile-manager.git
-cd rebornos-profile-manager
-```
+#### Install Using the PKGBUILD File
 
-### Run the Application
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/DrunkenAlcoholic/Reborn-Profile-Manager.git
+   cd Reborn-Profile-Manager
+   ```
 
-Make the file executable:
-```bash
-chmod +x Rebornos_Profile_Manager.py
-```
+2. Build and install the package:
+   ```bash
+   makepkg -si
+   ```
 
-Run the application:
-```bash
-./Rebornos_Profile_Manager.py
-```
+   This will:
+   - Install the `rebornos-profile-manager` script to `/usr/bin/rebornos-profile-manager`.
+
+3. Run the application:
+   ```bash
+   rebornos-profile-manager
+   ```
+
+### For Other Linux Distributions
+
+#### Prerequisites
+- **Python 3.12 or later**
+- **GTK 3**
+  - Install GTK and Python GObject bindings using your distribution's package manager.
+    - Example for Debian-based systems:
+      ```bash
+      sudo apt install python3-gi gir1.2-gtk-3.0
+      ```
+
+#### Running the Application
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/DrunkenAlcoholic/Reborn-Profile-Manager.git
+   cd Reborn-Profile-Manager
+   ```
+
+2. Make the Python script executable:
+   ```bash
+   chmod +x Rebornos_Profile_Manager.py
+   ```
+
+3. Run the application:
+   ```bash
+   ./Rebornos_Profile_Manager.py
+   ```
 
 ---
 
@@ -127,12 +156,15 @@ Contributions are welcome! Please follow these steps:
 
 ## License
 
-This project is licensed under the GPL v3 License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the GPLv3 License. See the [LICENSE](LICENSE) file for details.
+
 
 ---
 
 ## Contact
 
-For issues or feature requests, please open an issue in the [GitHub repository](https://github.com/DrunkenAlcoholic/rebornos-profile-manager/issues).
+For issues or feature requests, please open an issue in the [GitHub repository](https://github.com/DrunkenAlcoholic/Reborn-Profile-Manager/issues).
+
+
 
 
