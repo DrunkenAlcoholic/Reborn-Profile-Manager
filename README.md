@@ -117,19 +117,16 @@ RebornOS Profile Manager is a user-friendly tool for creating and restoring back
 ## Screenshots
 
 ### Backup Tab
-TODO:
 
-![Backup Tab Screenshot](path/to/screenshot1.png)
+![Backup Tab Screenshot](img/rpm.backup.ss.jpg)
 
 ### Restore Tab
-TODO:
 
-![Restore Tab Screenshot](path/to/screenshot2.png)
+![Restore Tab Screenshot](img/rpm.restore.ss.jpg)
 
 ### Settings Tab
-TODO:
 
-![Settings Tab Screenshot](path/to/screenshot3.png)
+![Settings Tab Screenshot](img/rpm.settings.ss.jpg)
 
 ---
 
