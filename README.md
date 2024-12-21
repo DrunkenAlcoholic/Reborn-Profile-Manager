@@ -6,26 +6,32 @@ RebornOS Profile Manager is a user-friendly tool for creating and restoring back
 
 ## Features
 
-- **Backup User Profiles**:
-  - Select specific files and folders like `.config`, `.bashrc`, `.ssh`, `.gnupg`, `Documents`, and more.
-  - Toggle which items to include in the backup.
-  - Compress backups for efficient storage (using `.tar.gz`).
+1. **Backup Profiles:**
+   - Create backups of user profiles, including specific files and directories.
+   - Supports both single-level and recursive folder selections.
+   - Option to enable compression for smaller backup files.
 
-- **Restore Profiles**:
-  - Restore from previously created backups.
-  - Automatically lists available backups for quick selection.
-  - Handles both compressed (`.tar.gz`) and uncompressed (`.tar`) backups.
+2. **Restore Profiles:**
+   - Restore profiles from previously created backups.
 
-- **Settings Tab**:
-  - Specify the default folder for backup and restore operations.
-  - Enable or disable compression for backups.
+3. **Customizable Backup Items:**
+   - Predefined items like `.bashrc`, `.config`, `.local`, `Documents`, and `Pictures`.
+   - Dynamic folder selection for recursive backups (e.g., `.config`, `.local`).
 
-- **Progress Indicators**:
-  - Real-time progress bar updates for both backup and restore processes.
-  - Spinner animation during operations to ensure responsiveness.
+4. **Exclusion Support:**
+   - Exclude specific files or folders from backups using the `EXCLUDED_ITEMS` list.
 
-- **Visual Enhancements**:
-  - Modern GTK-based interface that integrates with Linux system themes.
+5. **Progress Indicators:**
+   - Smooth progress bars for backup and restore operations.
+   - Spinner animations during ongoing processes.
+
+6. **GUI Enhancements:**
+   - Intuitive tab-based interface for backup, restore, and settings.
+   - Tree view for selecting subfolders in recursive directories.
+
+7. **Settings:**
+   - Select the default save location for backups and restores.
+   - Toggle compression on/off.
 
 ---
 
@@ -95,22 +101,21 @@ RebornOS Profile Manager is a user-friendly tool for creating and restoring back
 
 ## Usage
 
-1. **Backup**:
-   - Navigate to the `Backup` tab.
-   - Toggle the items you want to include in the backup.
-   - Click `Start Backup` to create a backup in the default folder.
-   - A success dialog will confirm completion.
+1. **Backup Tab:**
+   - Select items to include in the backup.
+   - For recursive folders (e.g., `.config`), select specific subfolders in the tree view.
+   - Click `Start Backup` to create a backup.
 
-2. **Restore**:
-   - Navigate to the `Restore` tab.
-   - Select the backup file from the dropdown menu.
-   - Click `Start Restore` to restore the selected backup.
-   - A success dialog will confirm completion.
+2. **Restore Tab:**
+   - Use the dropdown menu to select a backup file.
+   - Click `Refresh List` to update the dropdown if new backups are added while the application is running.
+   - Click `Start Restore` to begin restoring the selected backup.
+   - Respond to the warning dialog if a restore might overwrite existing configurations.
 
-3. **Settings**:
-   - Navigate to the `Settings` tab.
-   - Set the default folder for backups and restores.
-   - Enable or disable compression based on your preference.
+3. **Settings Tab:**
+   - Change the default save location for backups and restores.
+   - Toggle compression to enable/disable creating `.tar.gz` files.
+
 
 ---
 
@@ -161,6 +166,7 @@ This project is licensed under the GPLv3 License. See the [LICENSE](LICENSE) fil
 ## Contact
 
 For issues or feature requests, please open an issue in the [GitHub repository](https://github.com/DrunkenAlcoholic/Reborn-Profile-Manager/issues).
+
 
 
 
