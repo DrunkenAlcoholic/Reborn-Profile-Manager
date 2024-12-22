@@ -35,6 +35,13 @@ EXCLUDED_ITEMS = [
     "some_file"
 ]
 
+# Some simple debugging
+DEBUG_MODE = False
+
+def debug_print(message):
+    if DEBUG_MODE:
+        print(message)
+
 class RebornProfileManager(Gtk.Window):
     def __init__(self):
         super().__init__(title="Backup and Restore")
@@ -77,10 +84,10 @@ class RebornProfileManager(Gtk.Window):
     def safe_repack_widget(self, container, widget, expand=False, fill=False, padding=0):
         """Safely repacks a widget into a container by removing it from its parent if necessary."""
         if widget.get_parent() is not None:
-            #print(f"Removing widget from parent: {widget}")
+            debug_print(f"Removing widget from parent: {widget}")
             widget.get_parent().remove(widget)
         container.pack_start(widget, expand, fill, padding)
-        #print(f"Packed widget: {widget}, parent now: {container}")
+        debug_print(f"Packed widget: {widget}, parent now: {container}")
 
     def create_header_bar(self):
         header = Gtk.HeaderBar(title="RebornOS Profile Manager")
@@ -176,7 +183,7 @@ class RebornProfileManager(Gtk.Window):
         else:
             self.selected_recursive_items.discard(full_path)  # Remove full path from set   
 
-        print(f"Updated selected recursive items: {self.selected_recursive_items}")
+        debug_print(f"Updated selected recursive items: {self.selected_recursive_items}")
 
     def create_restore_tab(self):
         restore_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
@@ -243,13 +250,13 @@ class RebornProfileManager(Gtk.Window):
         return button
 
     def on_refresh_button_clicked(self, widget):
-        print("Refreshing restore dropdown...")
+        debug_print("Refreshing restore dropdown...")
         self.populate_restore_dropdown()
-        print("Restore dropdown refreshed.")
+        debug_print("Restore dropdown refreshed.")
 
     def on_backup_button_clicked(self, widget):
         if self.backup_in_progress:
-            print("Backup aborted by user.")
+            debug_print("Backup aborted by user.")
             self.abort_event.set()
             self.reset_backup_state()
         else:
@@ -266,7 +273,7 @@ class RebornProfileManager(Gtk.Window):
                     tree_store = self.backup_toggles[item]
                     selected_items.extend(self.get_checked_recursive_items(tree_store, item))   
 
-            print(f"Final selected items for backup: {selected_items}") 
+            debug_print(f"Final selected items for backup: {selected_items}") 
 
             if not selected_items:
                 self.show_message_dialog("Error", "No items selected for backup!")
@@ -304,18 +311,18 @@ class RebornProfileManager(Gtk.Window):
             with tarfile.open(backup_file, mode) as tar:
                 for item in items:
                     if self.abort_event.is_set():
-                        print("Backup aborted by user.")
+                        debug_print("Backup aborted by user.")
                         GLib.idle_add(self.show_message_dialog, "Aborted", "Backup was aborted!")
                         GLib.idle_add(self.reset_backup_state)
                         return  
 
                     full_path = Path(item)
                     if not full_path.exists():
-                        print(f"Skipping non-existent item: {item}")
+                        debug_print(f"Skipping non-existent item: {item}")
                         continue    
 
                     if full_path.is_dir():
-                        print(f"Backing up directory: {item}")
+                        debug_print(f"Backing up directory: {item}")
                         for root, _, files in os.walk(full_path):
                             for file in files:
                                 file_path = os.path.join(root, file)
@@ -323,14 +330,14 @@ class RebornProfileManager(Gtk.Window):
                                 processed_files += 1
                                 GLib.idle_add(self.update_progress_bar, processed_files / total_files, OPERATION_BACKUP)
                     elif full_path.is_file():
-                        print(f"Backing up file: {item}")
+                        debug_print(f"Backing up file: {item}")
                         tar.add(full_path, arcname=os.path.basename(item))
                         processed_files += 1
                         GLib.idle_add(self.update_progress_bar, processed_files / total_files, OPERATION_BACKUP)    
 
             GLib.idle_add(self.show_message_dialog, "Success", f"Backup completed: {backup_file}")
         except Exception as e:
-            print(f"Error during backup: {e}")
+            debug_print(f"Error during backup: {e}")
             GLib.idle_add(self.show_message_dialog, "Error", f"Backup failed: {str(e)}")
         finally:
             GLib.idle_add(self.reset_backup_state)
@@ -380,7 +387,7 @@ class RebornProfileManager(Gtk.Window):
         dialog.destroy()
 
         if response != Gtk.ResponseType.YES:
-            print("Restore aborted by the user.")
+            debug_print("Restore aborted by the user.")
             return
 
         backup_file = self.default_save_location / profile
@@ -426,7 +433,7 @@ class RebornProfileManager(Gtk.Window):
 
     def on_toggle_compression(self, widget):
         self.compression_enabled = widget.get_active()
-        print(f"Compression enabled: {self.compression_enabled}")
+        debug_print(f"Compression enabled: {self.compression_enabled}")
 
     def show_message_dialog(self, title, message):
         dialog = Gtk.Dialog(title=title, transient_for=self, flags=0)
