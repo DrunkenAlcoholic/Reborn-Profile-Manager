@@ -11,7 +11,7 @@ provides=("${pkgname}")
 conflicts=("${pkgname}")
 backup=()
 source=('rebornos-profile-manager.py')
-sha256sums=('28fafa048f57f1601d45e4fba14f36608179023c3ad76e0d8f9c18ee1681b39c')
+sha256sums=('defa82b8d89d147277f57bb75410cce917553b719c88336a19fff05d7bc5b0ee')
           
 
 package() {
