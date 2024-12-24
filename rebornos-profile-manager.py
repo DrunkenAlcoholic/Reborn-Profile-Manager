@@ -90,7 +90,7 @@ class RebornProfileManager(Gtk.Window):
         debug_print(f"Packed widget: {widget}, parent now: {container}")
 
     def create_header_bar(self):
-        header = Gtk.HeaderBar(title="RebornOS Profile Manager")
+        header = Gtk.HeaderBar(title="Profile Manager")
         header.set_subtitle("Manage your profiles efficiently")
         header.props.show_close_button = True
 
@@ -299,9 +299,19 @@ class RebornProfileManager(Gtk.Window):
         return checked_items
 
     def perform_backup(self, items):
+        # Ensure the default save location exists
+        if not self.default_save_location.exists():
+            try:
+                self.default_save_location.mkdir(parents=True, exist_ok=True)
+                debug_print(f"Created default save location: {self.default_save_location}")
+            except Exception as e:
+                GLib.idle_add(self.show_message_dialog, "Error", f"Failed to create default save location: {str(e)}")
+                GLib.idle_add(self.reset_backup_state)
+                return
+
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         file_extension = "tar.gz" if self.compression_enabled else "tar"
-        backup_file = self.default_save_location / f"backup_{timestamp}.{file_extension}"   
+        backup_file = self.default_save_location / f"profile_backup_{timestamp}.{file_extension}"   
 
         try:
             mode = "w:gz" if self.compression_enabled else "w"
@@ -314,6 +324,8 @@ class RebornProfileManager(Gtk.Window):
                         debug_print("Backup aborted by user.")
                         GLib.idle_add(self.show_message_dialog, "Aborted", "Backup was aborted!")
                         GLib.idle_add(self.reset_backup_state)
+                        if backup_file.exists():  # Remove the incomplete tar file
+                            backup_file.unlink()
                         return  
 
                     full_path = Path(item)
@@ -322,15 +334,20 @@ class RebornProfileManager(Gtk.Window):
                         continue    
 
                     if full_path.is_dir():
-                        debug_print(f"Backing up directory: {item}")
                         for root, _, files in os.walk(full_path):
                             for file in files:
+                                if self.abort_event.is_set():
+                                    debug_print("Backup aborted mid-process.")
+                                    GLib.idle_add(self.show_message_dialog, "Aborted", "Backup was aborted!")
+                                    GLib.idle_add(self.reset_backup_state)
+                                    if backup_file.exists():  # Remove the incomplete tar file
+                                        backup_file.unlink()
+                                    return
                                 file_path = os.path.join(root, file)
                                 tar.add(file_path, arcname=os.path.relpath(file_path, Path.home()))
                                 processed_files += 1
                                 GLib.idle_add(self.update_progress_bar, processed_files / total_files, OPERATION_BACKUP)
                     elif full_path.is_file():
-                        debug_print(f"Backing up file: {item}")
                         tar.add(full_path, arcname=os.path.basename(item))
                         processed_files += 1
                         GLib.idle_add(self.update_progress_bar, processed_files / total_files, OPERATION_BACKUP)    
@@ -341,6 +358,7 @@ class RebornProfileManager(Gtk.Window):
             GLib.idle_add(self.show_message_dialog, "Error", f"Backup failed: {str(e)}")
         finally:
             GLib.idle_add(self.reset_backup_state)
+
 
     def reset_backup_state(self):
         self.backup_in_progress = False
